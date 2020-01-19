@@ -1,0 +1,39 @@
+# Basic code stuctures #3
+# (1,2,3 don't imply code)
+
+import sys
+
+import pygame
+
+from settings import Settings #5
+from ship import Ship #drawing the ship screen #7
+
+def run_game():
+    """Initialize game and create a screen object."""
+    pygame.init()
+    informpy_settings = Settings()
+    screen = pygame.display.set_mode((informpy_settings.screen_width, informpy_settings.screen_height))
+    pygame.display.set_caption("Invaders from Python")
+
+
+    #Create a ship
+    ship = Ship(screen) #7 | make instance of ship before the main loop so we don't make an entry of the ship at each loop
+
+
+
+    # Start main loop for the game.
+    while True:
+
+        # Watch for keyboard and mouse events.
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+        # Redraw screeen during each pass through the loop #4
+        screen.fill(informpy_settings.bg_color)
+        ship.blitme() #7  | The ship appears on the top of the background (as a top layer)
+
+        # make the most recently drawn screen visible
+        pygame.display.flip()
+
+run_game()
